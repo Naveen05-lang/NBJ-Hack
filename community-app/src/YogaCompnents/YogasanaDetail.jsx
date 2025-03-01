@@ -1,70 +1,177 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import  "../styles/Yogasana.css";
 
-const YogasanaDetail = (id) => {
-  const { id } = useParams();  // Get the asana ID from the URL
+
+const API_BASE_URL = "http://localhost:8080";
+
+const YogasanaDetail = () => {
+  const { id } = useParams();
+  console.log("Extracted ID:", id);
+
   const [asana, setAsana] = useState(null);
-  const [count, setCount] = useState(0);
   const [comment, setComment] = useState("");
+  const [likes, setLikes] = useState(0);
+  const [difficulty, setDifficulty] = useState(null);
 
-  // Fetch the specific asana data
   useEffect(() => {
+    if (!id) {
+      console.error("Error: No ID found in URL");
+      return;
+    }
+
     const fetchAsana = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/yoga/${id}`);
+        const response = await axios.get(`${API_BASE_URL}/yoga/${id}`);
+        console.log(response.data);
+
         setAsana(response.data);
-        setCount(response.data.count);
+        setLikes(response.data.likes ?? 0);
+        setDifficulty(response.data.rating ?? null);
       } catch (error) {
         console.error("Error fetching asana:", error);
       }
     };
+
     fetchAsana();
   }, [id]);
 
-  // Update the count when the button is clicked
-  const updateCount = async () => {
+  const updateLike = async () => {
     try {
-      await axios.put(`YOUR_BACKEND_URL/asanas/${id}`, { count: count + 1 });
-      setCount(count + 1);  // Update the count locally after the PUT request
+      const response = await axios.post(`${API_BASE_URL}/yoga/${id}/like`);
+      setLikes((prevLikes) => prevLikes + 1); 
     } catch (error) {
-      console.error("Error updating count:", error);
+      console.error("Error updating like:", error);
     }
   };
 
-  // Add a new comment to the asana
-  const addComment = async () => {
+  const updateDifficulty = async (rating) => {
+    let userid = localStorage.getItem("user");
     try {
-      const updatedAsana = { ...asana, comments: [...asana.comments, comment] };
-      await axios.put(`YOUR_BACKEND_URL/asanas/${id}`, updatedAsana);
-      setAsana(updatedAsana);  // Update the asana with the new comment
-      setComment("");  // Reset the comment input field
+      userid = userid.replace(/^"|"$/g, "");
+
+      const response = await axios.post(`${API_BASE_URL}/yoga/rate`, {
+        userId: userid,
+        asanaId: id,
+        rating: rating,
+      });
+
+      setDifficulty(rating); 
+    } catch (error) {
+      console.error("Error updating rating:", error);
+    }
+  };
+
+
+  const updateCount = async () => {
+    let userid=localStorage.getItem("user");
+    try {
+      userid=userid.replace(/^"|"$/g, ""); 
+      const response = {
+        userId: userid,
+        asanaId: id,
+      };
+
+      await axios.post(`${API_BASE_URL}/yoga/log`,response);
+      
+    } catch (error) {
+      console.error("Error updating count:", error);
+    }
+console.log("Count Updated",userid);
+
+  };
+
+
+  const addComment = async () => {
+    let userid = localStorage.getItem("user");
+    try {
+      userid = userid.replace(/^"|"$/g, "");
+
+      if (!comment.trim()) return;
+
+      const response = await axios.post(`${API_BASE_URL}/yoga/comment`, {
+        userId: userid,
+        asanaId: id,
+        text: comment,
+      });
+
+      setAsana((prevAsana) => ({
+        ...prevAsana,
+        comments: [...prevAsana.comments, { text: comment }],
+      }));
+
+      setComment("");
     } catch (error) {
       console.error("Error adding comment:", error);
     }
   };
 
-  if (!asana) return <div>Loading...</div>;
+  if (!asana) return <div className="container mt-4">Loading...</div>;
 
   return (
     <div className="container mt-4">
       <h2>{asana.name}</h2>
-      {asana.video && (
-        <video controls className="w-100">
-          <source src={asana.video} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+     
+
+      
+
+
+            {asana.video ? (
+        asana.video.includes("youtube.com") || asana.video.includes("youtu.be") ? (
+          <div className="embed-responsive embed-responsive-16by9">
+            <iframe
+             style={{width:"100%",height:"400px"}} 
+              className="embed-responsive-item w-100"
+              src={asana.video.replace("watch?v=", "embed/")} 
+              title="Yogasana Video"
+              frameBorder="0"
+              allowFullScreen
+            ></iframe>
+          </div>
+        ) : (
+          <video controls className="w-100">
+            <source 
+              src={asana.video.startsWith("http") ? asana.video : `${API_BASE_URL}/${asana.video}`} 
+              type="video/mp4" 
+            />
+            Your browser does not support the video tag.
+          </video>
+        )
+      ) : (
+        <p className="text-muted">No video available</p>
       )}
+
       <p>{asana.description}</p>
-      <p><strong>Timing:</strong> {asana.timing}</p>
-      <p><strong>Difficulty:</strong> {asana.rating}</p>
-      <p><strong>Likes:</strong> {asana.likes}</p>
-      <p><strong>Comments:</strong> {asana.comments.join(", ")}</p>
+      
+
+      <p><strong>Difficulty:</strong> {difficulty ?? "Not Rated"}</p>
+      <div className="btn-group mb-3">
+        {[1, 2, 3, 4, 5].map((num) => (
+          <button
+            key={num}
+            onClick={() => updateDifficulty(num)}
+            className={`btn ${difficulty === num ? "btn-primary" : "btn-outline-primary"}`}
+          >
+            {num}
+          </button>
+        ))}
+      </div>
+
+      {/* <p><strong>Likes:</strong> {likes}</p> */}
+      <button onClick={updateLike} className="btn btn-warning">Like 👍</button>
+
+      <p><strong>Comments:</strong></p>
+      <ul>
+        {asana.comments && asana.comments.length > 0 ? (
+          asana.comments.map((com, index) => <li key={index}>{com.text}</li>)
+        ) : (
+          <p>No comments yet</p>
+        )}
+      </ul>
       <button onClick={updateCount} className="btn btn-success">
         Log Another Session
       </button>
-
       <div className="mt-3">
         <textarea
           value={comment}
@@ -72,12 +179,18 @@ const YogasanaDetail = (id) => {
           className="form-control"
           placeholder="Add a comment"
         ></textarea>
-        <button onClick={addComment} className="btn btn-primary mt-2">
-          Add Comment
-        </button>
+        <button onClick={addComment} className="btn btn-primary mt-2">Add Comment</button>
+
+        
       </div>
     </div>
   );
 };
 
 export default YogasanaDetail;
+
+
+
+
+
+

@@ -1,19 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Auth.module.css";
-
+import axios from 'axios';
 const SignUp = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: "", email: "", password: "" });
+
+
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
+  
+     const response =await axios.post('http://localhost:8080/auth/register',formData);
     console.log("User Signed Up:", formData);
-    navigate("/"); // Redirect to home after sign up
+    navigate("/"); 
   };
 
   return (

@@ -1,49 +1,56 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "bootstrap/dist/css/bootstrap.min.css";
+import '../styles/Dashboard.css';
+const API_BASE_URL = "http://localhost:8080"; 
 
 const Dashboard = () => {
   const [asanas, setAsanas] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch data when the component mounts
   useEffect(() => {
     const fetchAsanas = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/yoga/get-all"); 
-        console.log(response.data); // Replace with actual URL
-        setAsanas(response.data);
-        setLoading(false);
+        const response = await axios.get(`${API_BASE_URL}/yoga/get-all`); 
+        console.log("Fetched Asanas:", response.data); 
+        if (Array.isArray(response.data)) {
+          setAsanas(response.data);
+        } else {
+          console.error("API did not return an array:", response.data);
+          setAsanas([]); 
+        }
       } catch (error) {
-        console.error("Error fetching asanas:", error);
+        console.error("Error fetching asanas:", error.response?.data || error.message);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchAsanas();
   }, []);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (!asanas.length) return <div>No asanas found.</div>;
 
   return (
     <div className="container mt-4">
-      <h2 className="mb-3">Community Dashboard</h2>
+      <h2 className="mb-3">YoGaSaNaS </h2>
       <div className="row">
         {asanas.map((asana) => (
-          <div key={asana._id} className="col-md-4">
-            <div className="card mb-3">
-              <Link to={`/asana/${asana._id}`} className="text-decoration-none">
-                <img src={asana.image} alt={asana.name} className="card-img-top" />
+          <div key={asana.id} className="col-md-4">
+            <Link to={`/yoga/${asana._id}`} className="text-decoration-none">
+              <div className="card mb-3">
+                <img
+                  src={asana.image || "default-image.jpg"}
+                  alt={asana.name}
+                  className="card-img-top"
+                />
                 <div className="card-body">
                   <h5 className="card-title">{asana.name}</h5>
-                  <p><strong>Difficulty:</strong> {asana.avg_rating}</p>
-                  <p><strong>Times Performed:</strong> {asana.count} </p>
-                  <p><strong>Likes:</strong> {asana.likes}</p>
-                  <p><strong>Comments:</strong> {asana.comments.join(", ")} </p>
+                  <p><strong>Difficulty:</strong> {asana.avg_rating ?? "Not Rated"}</p>
                 </div>
-              </Link>
-            </div>
+              </div>
+            </Link>
           </div>
         ))}
       </div>
@@ -52,3 +59,5 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+

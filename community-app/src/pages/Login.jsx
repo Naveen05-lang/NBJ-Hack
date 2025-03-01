@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Auth.module.css";
-
+import axios from "axios";
 const Login = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -10,10 +10,21 @@ const Login = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    console.log("User Logged In:", formData);
-    navigate("/post-login-home"); // Redirect to home after login
+
+    let res=await axios.post('http://localhost:8080/auth/login',formData);
+
+    console.log(res)
+
+    if(res.status === 200){
+      console.log("User Logged In:", res);
+       localStorage.setItem("user", JSON.stringify(res.data.user._id)); 
+    navigate("/post-login-home");
+    }
+    else{
+      console.log("User not Logged In:",message);
+    }
   };
 
   return (
