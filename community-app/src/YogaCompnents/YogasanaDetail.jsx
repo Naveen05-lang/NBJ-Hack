@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const YogasanaDetail = () => {
+const YogasanaDetail = (id) => {
   const { id } = useParams();  // Get the asana ID from the URL
   const [asana, setAsana] = useState(null);
   const [count, setCount] = useState(0);
@@ -13,7 +13,7 @@ const YogasanaDetail = () => {
   useEffect(() => {
     const fetchAsana = async () => {
       try {
-        const response = await axios.get(`YOUR_BACKEND_URL/asanas/${id}`);
+        const response = await axios.get(`http://localhost:8080/yoga/${id}`);
         setAsana(response.data);
         setCount(response.data.count);
       } catch (error) {

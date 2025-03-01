@@ -12,7 +12,7 @@ const PostLoginHome = () => {
           <li><Link to="/profile">User Profile</Link></li>
           <li><Link to="/about-yogasanas">About Yogasanas</Link></li>
           <li><Link to="/leaderboard">Leadership Board</Link></li>
-          <li><Link to="/yogasanas">Yogasanas</Link></li>
+          <li><Link to="../YogaCompnents/Dashboard">Yogasanas</Link></li>
         </ul>
       </nav>
 

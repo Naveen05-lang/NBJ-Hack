@@ -11,7 +11,8 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAsanas = async () => {
       try {
-        const response = await axios.get("http://localhost:5500/yoga/get-all");  // Replace with actual URL
+        const response = await axios.get("http://localhost:8080/yoga/get-all"); 
+        console.log(response.data); // Replace with actual URL
         setAsanas(response.data);
         setLoading(false);
       } catch (error) {
@@ -36,10 +37,10 @@ const Dashboard = () => {
                 <img src={asana.image} alt={asana.name} className="card-img-top" />
                 <div className="card-body">
                   <h5 className="card-title">{asana.name}</h5>
-                  <p><strong>Difficulty:</strong> {asana.rating}</p>
-                  <p><strong>Times Performed:</strong> {asana.count}</p>
+                  <p><strong>Difficulty:</strong> {asana.avg_rating}</p>
+                  <p><strong>Times Performed:</strong> {asana.count} </p>
                   <p><strong>Likes:</strong> {asana.likes}</p>
-                  <p><strong>Comments:</strong> {asana.comments.join(", ")}</p>
+                  <p><strong>Comments:</strong> {asana.comments.join(", ")} </p>
                 </div>
               </Link>
             </div>
