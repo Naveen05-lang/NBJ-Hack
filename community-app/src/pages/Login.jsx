@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("User Logged In:", formData);
-    navigate("/"); // Redirect to home after login
+    navigate("/post-login-home"); // Redirect to home after login
   };
 
   return (
