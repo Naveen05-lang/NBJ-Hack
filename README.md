@@ -1,5 +1,16 @@
 ##  Yogasana Community App
 
+## Frontend deployed site link
+
+    https://yoga-wellness-community-app.netlify.app/
+
+## Backend deployed link URL
+
+    https://yoga-backend-m6ew.onrender.com
+    
+
+
+
 ### Overview
 The **Yogasana Community App** is a platform for yoga enthusiasts to log the number of yogasanas performed and rate their difficulty. It helps users track progress, interact with the community, and gain insights into various yoga poses.
 
