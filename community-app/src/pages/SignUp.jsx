@@ -17,7 +17,7 @@ const SignUp = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
   
-     const response =await axios.post('http://localhost:8080/auth/register',formData);
+     const response =await axios.post('https://yoga-backend-m6ew.onrender.com/auth/register',formData);
     console.log("User Signed Up:", formData);
     navigate("/"); 
   };

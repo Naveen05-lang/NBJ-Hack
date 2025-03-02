@@ -13,7 +13,7 @@ const Login = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
 
-    let res=await axios.post('http://localhost:8080/auth/login',formData);
+    let res=await axios.post('https://yoga-backend-m6ew.onrender.com/auth/login',formData);
 
    
 

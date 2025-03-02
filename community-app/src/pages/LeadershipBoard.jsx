@@ -3,7 +3,7 @@ import axios from "axios";
 import "../styles/LeadershipBoard.css"; // Import the CSS file
 
 function LeadershipBoard() {
-    const API_BASE_URL = "http://localhost:8080";
+    const API_BASE_URL = "https://yoga-backend-m6ew.onrender.com";
     const [leaderboard, setLeaderboard] = useState([]);
 
     useEffect(() => {

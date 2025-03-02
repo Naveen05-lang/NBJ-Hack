@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import '../styles/Dashboard.css';
-const API_BASE_URL = "http://localhost:8080"; 
+const API_BASE_URL = "https://yoga-backend-m6ew.onrender.com"; 
 
 const Dashboard = () => {
   const [asanas, setAsanas] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import '../styles/UserProfile.css';
 function UserProfile() {
-  const API_BASE_URL = "http://localhost:8080";
+  const API_BASE_URL = "https://yoga-backend-m6ew.onrender.com";
   const [user, setUser] = useState(null);
   let userId = localStorage.getItem("user");
   userId = userId.replace(/^"|"$/g, "");

@@ -4,7 +4,7 @@ import axios from "axios";
 import  "../styles/Yogasana.css";
 import { useNavigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
-const API_BASE_URL = "http://localhost:8080";
+const API_BASE_URL = "https://yoga-backend-m6ew.onrender.com";
 
 const YogasanaDetail = () => {
   const { id } = useParams();
@@ -160,7 +160,7 @@ console.log("Count Updated",userid);
         ))}
       </div>
 
-      <button onClick={updateLike} className="btn btn-warning">Like 👍</button>
+      
 
       <p><strong>Comments:</strong></p>
       <ul>
