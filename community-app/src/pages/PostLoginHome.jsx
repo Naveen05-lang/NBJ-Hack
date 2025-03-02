@@ -1,10 +1,11 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { Link } from "react-router-dom";
 import styles from "../styles/PostLoginHome.module.css";
 import yogasanaImage from "../assets/yogasana.webp";
 import Dashboard from "../YogaCompnents/Dashboard";
 import Login from "./Login";
 import About from "./About";
+import LeadershipBoard from "./LeadershipBoard";
 const PostLoginHome = () => {
   return (
     <div className={styles.container}>
@@ -13,7 +14,7 @@ const PostLoginHome = () => {
         <ul>
           <li><Link to="/profile">User Profile</Link></li>
           <li><Link to="/about">About Yogasanas</Link></li>
-          <li><Link to="/leaderboard">Leadership Board</Link></li>
+          <li><Link to="/leadershipboard">Leadership Board</Link></li>
           <li><Link to="/dashboard">Yogasanas</Link></li>
           <li>
           <Link

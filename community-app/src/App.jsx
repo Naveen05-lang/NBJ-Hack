@@ -7,6 +7,9 @@ import PostLoginHome from "./pages/PostLoginHome";
 import Dashboard from "./YogaCompnents/Dashboard";
 import YogasanaDetail from "./YogaCompnents/YogasanaDetail";
 import About from "./pages/About";
+import LeadershipBoard from "./pages/LeadershipBoard";
+
+
 function App() {
   return (
     <Router>
@@ -18,7 +21,7 @@ function App() {
         <Route path="/Dashboard" element={<Dashboard/>}/>
         <Route path="/yoga/:id" element={<YogasanaDetail />} />
         <Route path="/about" element={<About/>} />
-
+        <Route path="/leadershipboard" element={<LeadershipBoard/>} />
       </Routes>
     </Router>
     
