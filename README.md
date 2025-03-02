@@ -66,7 +66,7 @@ The **Yogasana Community App** is a platform for yoga enthusiasts to log the num
 ---
 
 ##  Setup Instructions
-### 1️Clone the Repository
+### Clone the Repository
 ```bash
 git clone https://github.com/Naveen05-lang/NBJ-Hack
 cd NBJ-Hack
