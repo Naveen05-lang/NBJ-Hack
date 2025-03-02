@@ -48,7 +48,7 @@ The **Yogasana Community App** is a platform for yoga enthusiasts to log the num
  ┃ ┣ vite.config.js
  ┃ ┣  package.json
  ┃ ┣ README.md
- ┣ Backend
+ ┣ prac
  ┃ ┣ config
  ┃ ┃ ┣ db.js
  ┃ ┣ models
@@ -68,8 +68,8 @@ The **Yogasana Community App** is a platform for yoga enthusiasts to log the num
 ##  Setup Instructions
 ### 1️Clone the Repository
 ```bash
-git clone https://github.com/your-repo/yogasana-community.git
-cd yogasana-community
+git clone https://github.com/Naveen05-lang/NBJ-Hack
+cd NBJ-Hack
 ```
 
 ### Install Dependencies
@@ -80,7 +80,7 @@ npm install
 ```
 #### **Backend**
 ```bash
-cd backend
+cd prac
 npm install
 ```
 
@@ -89,7 +89,7 @@ Create a `.env` file inside the `backend` folder and add:
 ```
 MONGO_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
-PORT=5000
+PORT=8080
 ```
 
 ###  Run the Development Servers
@@ -100,7 +100,7 @@ npm run dev
 ```
 #### **Backend**
 ```bash
-cd backend
+cd prac
 node server.js
 ```
 
