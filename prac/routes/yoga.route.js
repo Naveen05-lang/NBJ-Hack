@@ -146,23 +146,32 @@ router.post("/comment", async (req, res) => {
 // Fetch User’s Performance on Yoga Asanas
 router.get("/logs/:userId", async (req, res) => {
   try {
+    const user = await User.findById(req.params.userId).select("username email");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
     const asanas = await YogaAsana.find({ "performance.userId": req.params.userId });
 
     const userLogs = asanas.map(asana => {
       const userPerformance = asana.performance.find(p => p.userId.toString() === req.params.userId);
       return {
         asanaId: asana._id,
-        name: asana.name,
+        asanaName: asana.name,
         image: asana.image,
         count: userPerformance ? userPerformance.count : 0,
         lastPerformed: userPerformance ? userPerformance.timestamp : null,
       };
     });
-
-    res.json(userLogs);
+    res.json({
+      userId: user._id,
+      username: user.username,
+      email: user.email,
+      logs: userLogs,
+    });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
+
 
 module.exports = router;
