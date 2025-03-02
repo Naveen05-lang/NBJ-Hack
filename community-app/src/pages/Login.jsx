@@ -15,7 +15,7 @@ const Login = () => {
 
     let res=await axios.post('http://localhost:8080/auth/login',formData);
 
-    console.log(res)
+   
 
     if(res.status === 200){
       console.log("User Logged In:", res);
