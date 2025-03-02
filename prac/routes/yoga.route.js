@@ -18,8 +18,6 @@ router.get("/leaderboard", async (req, res) => {
   try {
     const asanas = await YogaAsana.find();
     const userPerformance = {};
-
-    // Step 1: Aggregate asana performance data
     asanas.forEach((asana) => {
       asana.performance.forEach((entry) => {
         if (!userPerformance[entry.userId]) {
@@ -30,20 +28,17 @@ router.get("/leaderboard", async (req, res) => {
       });
     });
 
-    // Step 2: Fetch user details from the User collection
     const userIds = Object.keys(userPerformance);
     const users = await User.find({ _id: { $in: userIds } }).select("username");
-    console.log(users);
-    // Step 3: Merge user details with performance data
     const leaderboard = userIds.map((userId) => {
       const user = users.find((u) => u._id.toString() === userId);
       return {
         userId,
-        username: user ? user.username : "Unknown User", // Add user name
+        username: user ? user.username : "Unknown User",
         totalAsanas: userPerformance[userId].totalAsanas,
         totalCount: userPerformance[userId].totalCount,
       };
-    }).sort((a, b) => b.totalCount - a.totalCount); // Sort by highest count
+    }).sort((a, b) => b.totalCount - a.totalCount); 
 
     res.json(leaderboard);
   } catch (err) {
