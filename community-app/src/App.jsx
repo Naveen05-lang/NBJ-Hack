@@ -8,7 +8,7 @@ import Dashboard from "./YogaCompnents/Dashboard";
 import YogasanaDetail from "./YogaCompnents/YogasanaDetail";
 import About from "./pages/About";
 import LeadershipBoard from "./pages/LeadershipBoard";
-
+import UserProfile from "./pages/UserProfile";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
         <Route path="/yoga/:id" element={<YogasanaDetail />} />
         <Route path="/about" element={<About/>} />
         <Route path="/leadershipboard" element={<LeadershipBoard/>} />
+        <Route path="/userprofile" element={<UserProfile/>} />
       </Routes>
     </Router>
     

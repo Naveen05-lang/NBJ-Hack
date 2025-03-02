@@ -6,13 +6,14 @@ import Dashboard from "../YogaCompnents/Dashboard";
 import Login from "./Login";
 import About from "./About";
 import LeadershipBoard from "./LeadershipBoard";
+import UserProfile from "./UserProfile";
 const PostLoginHome = () => {
   return (
     <div className={styles.container}>
      
       <nav className={styles.navbar}>
         <ul>
-          <li><Link to="/profile">User Profile</Link></li>
+          <li><Link to="/userProfile">User Profile</Link></li>
           <li><Link to="/about">About Yogasanas</Link></li>
           <li><Link to="/leadershipboard">Leadership Board</Link></li>
           <li><Link to="/dashboard">Yogasanas</Link></li>
