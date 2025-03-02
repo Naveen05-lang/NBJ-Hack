@@ -15,7 +15,6 @@ app.use(cors({ origin: "*" }));
 connectDB();
 app.use("/auth", authRoutes);
 app.use("/yoga", yogaRoutes);
-// app.use("/rating", ratingRoutes);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
