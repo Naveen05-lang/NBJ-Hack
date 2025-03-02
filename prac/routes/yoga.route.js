@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const YogaAsana = require("../models/yoga.model");
+const User=require("../models/user.model");
 const router = express.Router();
 
 // Fetch All Yoga Asanas
@@ -16,9 +17,7 @@ router.get("/get-all", async (req, res) => {
 router.get("/leaderboard", async (req, res) => {
   try {
     const asanas = await YogaAsana.find();
-
     const userPerformance = {};
-
     asanas.forEach((asana) => {
       asana.performance.forEach((entry) => {
         if (!userPerformance[entry.userId]) {
@@ -28,13 +27,18 @@ router.get("/leaderboard", async (req, res) => {
         userPerformance[entry.userId].totalCount += entry.count;
       });
     });
-    const leaderboard = Object.entries(userPerformance)
-      .map(([userId, stats]) => ({
+
+    const userIds = Object.keys(userPerformance);
+    const users = await User.find({ _id: { $in: userIds } }).select("username");
+    const leaderboard = userIds.map((userId) => {
+      const user = users.find((u) => u._id.toString() === userId);
+      return {
         userId,
-        totalAsanas: stats.totalAsanas,
-        totalCount: stats.totalCount,
-      }))
-      .sort((a, b) => b.totalCount - a.totalCount); 
+        username: user ? user.username : "Unknown User",
+        totalAsanas: userPerformance[userId].totalAsanas,
+        totalCount: userPerformance[userId].totalCount,
+      };
+    }).sort((a, b) => b.totalCount - a.totalCount); 
 
     res.json(leaderboard);
   } catch (err) {
