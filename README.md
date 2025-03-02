@@ -14,7 +14,7 @@ The **Yogasana Community App** is a platform for yoga enthusiasts to log the num
 
 ---
 
-## 🛠️ Tech Stack
+##  Tech Stack
 ### Frontend:
 - **React.js (Vite)**
 - **React Router** (for navigation)
@@ -65,14 +65,14 @@ The **Yogasana Community App** is a platform for yoga enthusiasts to log the num
 
 ---
 
-## 🛠 Setup Instructions
-### 1️⃣ Clone the Repository
+##  Setup Instructions
+### 1️Clone the Repository
 ```bash
 git clone https://github.com/your-repo/yogasana-community.git
 cd yogasana-community
 ```
 
-### 2️⃣ Install Dependencies
+### Install Dependencies
 #### **Frontend**
 ```bash
 cd community-app
@@ -84,7 +84,7 @@ cd backend
 npm install
 ```
 
-### 3️⃣ Configure Environment Variables
+###  Configure Environment Variables
 Create a `.env` file inside the `backend` folder and add:
 ```
 MONGO_URI=your_mongodb_connection_string
@@ -92,7 +92,7 @@ JWT_SECRET=your_secret_key
 PORT=5000
 ```
 
-### 4️⃣ Run the Development Servers
+###  Run the Development Servers
 #### **Frontend**
 ```bash
 cd community-app
