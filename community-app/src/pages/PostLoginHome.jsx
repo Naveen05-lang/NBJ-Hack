@@ -4,7 +4,7 @@ import styles from "../styles/PostLoginHome.module.css";
 import yogasanaImage from "../assets/yogasana.webp";
 import Dashboard from "../YogaCompnents/Dashboard";
 import Login from "./Login";
-
+import About from "./About";
 const PostLoginHome = () => {
   return (
     <div className={styles.container}>
@@ -12,7 +12,7 @@ const PostLoginHome = () => {
       <nav className={styles.navbar}>
         <ul>
           <li><Link to="/profile">User Profile</Link></li>
-          <li><Link to="/about-yogasanas">About Yogasanas</Link></li>
+          <li><Link to="/about">About Yogasanas</Link></li>
           <li><Link to="/leaderboard">Leadership Board</Link></li>
           <li><Link to="/dashboard">Yogasanas</Link></li>
           <li>
