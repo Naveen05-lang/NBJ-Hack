@@ -12,7 +12,35 @@ router.get("/get-all", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+//LeaderBoard Fetching
+router.get("/leaderboard", async (req, res) => {
+  try {
+    const asanas = await YogaAsana.find();
 
+    const userPerformance = {};
+
+    asanas.forEach((asana) => {
+      asana.performance.forEach((entry) => {
+        if (!userPerformance[entry.userId]) {
+          userPerformance[entry.userId] = { totalAsanas: 0, totalCount: 0 };
+        }
+        userPerformance[entry.userId].totalAsanas += 1; 
+        userPerformance[entry.userId].totalCount += entry.count;
+      });
+    });
+    const leaderboard = Object.entries(userPerformance)
+      .map(([userId, stats]) => ({
+        userId,
+        totalAsanas: stats.totalAsanas,
+        totalCount: stats.totalCount,
+      }))
+      .sort((a, b) => b.totalCount - a.totalCount); 
+
+    res.json(leaderboard);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 // Fetch a Single Yoga Asana by ID
 router.get("/:id", async (req, res) => {
   try {
@@ -83,8 +111,6 @@ router.post("/rate", async (req, res) => {
     } else {
       asana.ratings.push({ userId, rating });
     }
-
-    // Calculate new average rating
     const totalRatings = asana.ratings.length;
     const avgRating = asana.ratings.reduce((sum, r) => sum + r.rating, 0) / totalRatings;
     asana.avg_rating = avgRating.toFixed(2);
