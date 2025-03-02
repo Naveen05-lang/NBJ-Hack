@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import  "../styles/Yogasana.css";
-
-
+import { useNavigate } from "react-router-dom";
+import Dashboard from "./Dashboard";
 const API_BASE_URL = "http://localhost:8080";
 
 const YogasanaDetail = () => {
   const { id } = useParams();
   console.log("Extracted ID:", id);
-
+  let navigate=useNavigate();
   const [asana, setAsana] = useState(null);
   const [comment, setComment] = useState("");
   const [likes, setLikes] = useState(0);
@@ -62,9 +62,11 @@ const YogasanaDetail = () => {
       console.error("Error updating rating:", error);
     }
   };
-
+ 
 
   const updateCount = async () => {
+
+   
     let userid=localStorage.getItem("user");
     try {
       userid=userid.replace(/^"|"$/g, ""); 
@@ -74,7 +76,7 @@ const YogasanaDetail = () => {
       };
 
       await axios.post(`${API_BASE_URL}/yoga/log`,response);
-      
+      navigate("/Dashboard");
     } catch (error) {
       console.error("Error updating count:", error);
     }
@@ -158,7 +160,6 @@ console.log("Count Updated",userid);
         ))}
       </div>
 
-      {/* <p><strong>Likes:</strong> {likes}</p> */}
       <button onClick={updateLike} className="btn btn-warning">Like 👍</button>
 
       <p><strong>Comments:</strong></p>
