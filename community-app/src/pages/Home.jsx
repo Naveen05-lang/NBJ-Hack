@@ -14,7 +14,7 @@ const Home = () => {
         Track your Yogasanas, compete with friends, and improve your health!
       </p>
       <div className={styles.buttonContainer}>
-        <button className={styles.signUp} onClick={() => navigate("/signup")}>
+        <button className={styles.signUp} onClick={() =>navigate("/signup")}>
           Sign Up
         </button>
         <button className={styles.login} onClick={() => navigate("/login")}>

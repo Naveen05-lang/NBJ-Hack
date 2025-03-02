@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "../styles/Auth.module.css";
+// import '../styles/SignUp.css';
 import axios from 'axios';
 const SignUp = () => {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ const SignUp = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Sign Up</h2>
+      <h2 className="sign">Sign Up</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" name="username" placeholder="Username" onChange={handleChange} required />
         <input type="email" name="email" placeholder="Email" onChange={handleChange} required />
