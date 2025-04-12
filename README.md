@@ -119,6 +119,23 @@ npm run dev
 cd prac
 node server.js
 ```
+## Mount Page 
+![Screenshot 2025-04-12 102833](https://github.com/user-attachments/assets/6ae01e40-d9ce-4d4a-aaa8-9407863887dd)
+
+
+## SignUp and Login pages
+![Screenshot 2025-04-12 102910](https://github.com/user-attachments/assets/06ae5b16-c07d-4dca-b94a-ea07ce183069)
+![Screenshot 2025-04-12 102932](https://github.com/user-attachments/assets/e3726ce1-c93d-4066-9012-d9ba43bc40be)
+
+## Home page
+![Screenshot 2025-04-12 103132](https://github.com/user-attachments/assets/a5c57228-da54-40ba-9a0b-41be6bb045a2)
+
+## LeaderShip Board
+![Screenshot 2025-04-12 103157](https://github.com/user-attachments/assets/dcda25b1-af41-4cce-a32f-2763b1764475)
+
+## Yogasana Page
+![Screenshot 2025-04-12 103218](https://github.com/user-attachments/assets/3d3dc679-6e63-4317-9c7e-0748979accec)
+
 
 
 
@@ -126,5 +143,4 @@ node server.js
 - Better UI/UX enhancements
 - Mobile-responsive design
 - Social sharing features
-## SignUp and Login pages
-![Screenshot 2025-04-12 102910](https://github.com/user-attachments/assets/06ae5b16-c07d-4dca-b94a-ea07ce183069)
+
