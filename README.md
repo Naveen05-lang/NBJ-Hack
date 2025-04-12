@@ -126,3 +126,5 @@ node server.js
 - Better UI/UX enhancements
 - Mobile-responsive design
 - Social sharing features
+## SignUp and Login pages
+![Screenshot 2025-04-12 102910](https://github.com/user-attachments/assets/06ae5b16-c07d-4dca-b94a-ea07ce183069)
